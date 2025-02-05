@@ -15,11 +15,31 @@ public class MovieService : IMovieService
 
     public IEnumerable<Movie> GetAllMovies()
     {
-        return _moviesDbContext.Movies.OrderBy(m => m.Released).AsNoTracking().AsEnumerable();
+        return _moviesDbContext.Movies.OrderBy(m => m.MovieId).AsNoTracking().AsEnumerable();
+    }
+
+    public void AddMovie(Movie movie)
+    {
+        _moviesDbContext.Movies.Add(movie);
+        // Outputting for debugging purposes
+        _moviesDbContext.ChangeTracker.DetectChanges();
+        Console.WriteLine(_moviesDbContext.ChangeTracker.DebugView.LongView);
+
+        _moviesDbContext.SaveChanges();
     }
     public IEnumerable<Actor> GetAllActors()
     {
         return _moviesDbContext.Actors.OrderBy(a => a.DateOfBirth).AsNoTracking().AsEnumerable();
+    }
+    
+    public void AddActor(Actor actor)
+    {
+        _moviesDbContext.Actors.Add(actor);
+        // Outputting for debugging purposes
+        _moviesDbContext.ChangeTracker.DetectChanges();
+        Console.WriteLine(_moviesDbContext.ChangeTracker.DebugView.LongView);
+        
+        _moviesDbContext.SaveChanges();
     }
     public IEnumerable<Comment> GetAllComments()
     {

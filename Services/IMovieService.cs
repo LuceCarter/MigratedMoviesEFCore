@@ -6,7 +6,11 @@ namespace MigratedMoviesEFCore.Services;
 public interface IMovieService
 {
         IEnumerable<Movie> GetAllMovies();
-        IEnumerable<Actor> GetAllActors();       
+
+       void AddMovie(Movie movie);
+        IEnumerable<Actor> GetAllActors(); 
+        
+       void AddActor(Actor actor);
         IEnumerable<Comment> GetAllComments();
         IEnumerable<MovieCast> GetAllMovieCasts();
         IEnumerable<MovieGenres> GetAllMovieGenres();
