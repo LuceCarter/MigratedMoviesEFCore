@@ -12,4 +12,18 @@ public class MoviesDbContext : DbContext
     public DbSet<MovieGenres> MovieGenres { get; set; }
     public DbSet<Theater> Theaters { get; set; }
     public DbSet<User>  Users { get; set; }
+
+    public MoviesDbContext(DbContextOptions<MoviesDbContext> options) : base(options)
+    {
+    }
+
+    protected override void OnModelCreating(ModelBuilder modelBuilder)
+    {
+        base.OnModelCreating(modelBuilder);
+
+        modelBuilder.Entity<MovieCast>()
+            .HasKey(mc => new { mc.MovieId, mc.ActorId });
+        modelBuilder.Entity<MovieGenres>()
+            .HasKey(mg => new { mg.MovieId, mg.Genre });
+    }
 }

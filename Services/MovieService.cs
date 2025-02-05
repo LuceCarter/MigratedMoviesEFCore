@@ -1,0 +1,48 @@
+using System;
+using Microsoft.EntityFrameworkCore;
+using MigratedMoviesEFCore.Models;
+
+namespace MigratedMoviesEFCore.Services;
+
+public class MovieService : IMovieService
+{
+    private readonly MoviesDbContext _moviesDbContext;
+
+    public MovieService(MoviesDbContext moviesDbContext)
+    {
+        _moviesDbContext = moviesDbContext;
+    }
+
+    public IEnumerable<Movie> GetAllMovies()
+    {
+        return _moviesDbContext.Movies.OrderBy(m => m.Released).AsNoTracking().AsEnumerable();
+    }
+    public IEnumerable<Actor> GetAllActors()
+    {
+        return _moviesDbContext.Actors.OrderBy(a => a.DateOfBirth).AsNoTracking().AsEnumerable();
+    }
+    public IEnumerable<Comment> GetAllComments()
+    {
+        return _moviesDbContext.Comments.OrderBy(c => c.CommentDate).AsNoTracking().AsEnumerable();
+    }
+    
+    public IEnumerable<MovieCast> GetAllMovieCasts()
+    {
+        return _moviesDbContext.MovieCasts.OrderBy(mc => mc.MovieId).AsNoTracking().AsEnumerable();
+    }
+    
+    public IEnumerable<MovieGenres> GetAllMovieGenres()
+    {
+        return _moviesDbContext.MovieGenres.OrderBy(mg => mg.MovieId).AsNoTracking().AsEnumerable();
+    }
+    
+    public IEnumerable<Theater> GetAllTheaters()
+    {
+        return _moviesDbContext.Theaters.OrderBy(t => GetType().Name).AsNoTracking().AsEnumerable();
+    }
+    
+    public IEnumerable<User> GetAllUsers()
+    {
+        return _moviesDbContext.Users.OrderBy(u => u.Name).AsNoTracking().AsEnumerable();
+    }
+}

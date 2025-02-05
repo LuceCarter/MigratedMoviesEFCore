@@ -7,11 +7,11 @@ namespace MigratedMoviesEFCore.Models;
 [Table("movie_cast")]
 public class MovieCast
 {
-    [Key, Column("movie_id", Order = 0)]
+    [Column("movie_id", Order = 0)]
     [JsonPropertyName("movie_id")]
     public int MovieId { get; set; }
 
-    [Key, Column("actor_id", Order = 1)]
+    [Column("actor_id", Order = 1)]
     [JsonPropertyName("actor_id")]
     public int ActorId { get; set; }
 }
