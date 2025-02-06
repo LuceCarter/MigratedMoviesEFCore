@@ -30,16 +30,67 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
+#region /movies
+
 app.MapGet("/movies", (IMovieService movieService) =>
 {
    return movieService.GetAllMovies();
 })
 .WithName("GetMovies");
 
+app.MapGet("/movies/{id}", (IMovieService movieService, int id) =>
+{
+   return movieService.GetMovieById(id);
+}).WithName("GetMovieById");
+
+app.MapPost("/movies", (IMovieService movieService, Movie movie) =>
+{
+   movieService.AddMovie(movie);
+}).WithName("AddMovie");
+
+app.MapPut("/movies/{id}", (IMovieService movieService, Movie movieToUpdate) =>
+{
+   movieService.UpdateMovie(movieToUpdate);
+}).WithName("UpdateMovie");
+
+app.MapDelete("/movies/{id}", (IMovieService movieService, string id) =>
+{
+   var movieToDelete = movieService.GetMovieById(Int32.Parse(id));
+   movieService.DeleteMovie(movieToDelete);
+}).WithName("DeleteMovie");
+
+#endregion
+
+#region actors
+
 app.MapGet("/actors", (IMovieService movieService) =>
 {
    return movieService.GetAllActors();
 }).WithName("GetActors");
+
+app.MapGet("/actors/{id}", (IMovieService movieService, int id) =>
+{
+   return movieService.GetActorById(id);
+}).WithName("GetActorById");
+
+app.MapPost("/actors", (IMovieService movieService, Actor actor) =>
+{
+   movieService.AddActor(actor);
+}).WithName("AddActor");
+
+
+app.MapPut("/actors/{id}", (IMovieService movieService, Actor actorToUpdate) =>
+{
+   movieService.UpdateActor(actorToUpdate);
+}).WithName("UpdateActor");
+
+app.MapDelete("/actors/{id}", (IMovieService movieService, string id) =>
+{
+   var actorToDelete = movieService.GetActorById(Int32.Parse(id));
+   movieService.DeleteActor(actorToDelete);
+}).WithName("DeleteActor");
+
+#endregion
 
 app.MapGet("/comments", (IMovieService movieService) =>
 {
@@ -66,15 +117,6 @@ app.MapGet("/users", (IMovieService movieService) =>
    return movieService.GetAllUsers();
 }).WithName("GetUsers");
 
-app.MapPost("/movies", (IMovieService movieService, Movie movie) =>
-{
-  movieService.AddMovie(movie);
-}).WithName("AddMovie");
-
-app.MapPost("/actors", (IMovieService movieService, Actor actor) =>
-{
-  movieService.AddActor(actor);
-}).WithName("AddActor");
 
 app.Run();
 
