@@ -1,27 +1,21 @@
-using System;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Text.Json.Serialization;
+using MongoDB.Bson;
+using MongoDB.Bson.Serialization.Attributes;
+using MongoDB.EntityFrameworkCore;
 
 namespace MigratedMoviesEFCore.Models;
 
-[Table("actors")]
+[Collection("actors")]
+[BsonIgnoreExtraElements]
 public class Actor
 {
-    [Key]
-    [Column("actor_id")]
-    [JsonPropertyName("actor_id")]
-    public int ActorId { get; set; }
-
-    [Column("name")]
-    [JsonPropertyName("name")]
-    public string? Name { get; set; }
-
-    [Column("date_of_birth")]
-    [JsonPropertyName("date_of_birth")]
-    public DateTime? DateOfBirth { get; set; }
-
-    [Column("place_of_birth")]
-    [JsonPropertyName("place_of_birth")]
-    public string? PlaceOfBirth { get; set; }
+    [BsonId]
+    [BsonElement("_id")]
+    public ObjectId Id { get; set; }
+    
+    [BsonElement("name")] 
+    public required string Name { get; set; }
+    [BsonElement("dateOfBirth")] 
+    public required DateTime DateOfBirth { get; set; }
+    [BsonElement("placeOfBirth")] 
+    public required string PlaceOfBirth { get; set; }
 }

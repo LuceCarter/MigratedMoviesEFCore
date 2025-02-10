@@ -1,54 +1,50 @@
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Text.Json.Serialization;
+using MongoDB.Bson;
+using MongoDB.Bson.Serialization.Attributes;
+using MongoDB.EntityFrameworkCore;
 
 namespace MigratedMoviesEFCore.Models;
 
-[Table("movies")]
+[Collection("movies")]
+[BsonIgnoreExtraElements]
 public class Movie
 {
-    [Key]
-    [Column("movie_id")]
-    [JsonPropertyName("movie_id")]
-    public int MovieId { get; set; }
-
-    [Column("title")]
-    [JsonPropertyName("title")]
-    public string? Title { get; set; }
-
-    [Column("year")]
-    [JsonPropertyName("year")]
-    public int? Year { get; set; }
-
-    [Column("runtime")]
-    [JsonPropertyName("runtime")]
-    public int? Runtime { get; set; }
-
-    [Column("plot")]
-    [JsonPropertyName("plot")]
-    public string? Plot { get; set; }
-
-    [Column("fullplot")]
-    [JsonPropertyName("fullplot")]
-    public string? Fullplot { get; set; }
-
-    [Column("type")]
-    [JsonPropertyName("type")]
-    public string? Type { get; set; }
-
-    [Column("released")]
-    [JsonPropertyName("released")]
-    public DateTime? Released { get; set; }
-
-    [Column("rated")]
-    [JsonPropertyName("rated")]
-    public string? Rated { get; set; }
-
-    [Column("poster")]
-    [JsonPropertyName("poster")]
-    public string? Poster { get; set; }
-
-    [Column("lastupdated")]
-    [JsonPropertyName("lastupdated")]
-    public DateTime? LastUpdated { get; set; }
+  [BsonId]
+  [BsonElement("_id")]
+  public ObjectId Id { get; set; }
+  
+  [BsonElement("title")]
+  public required string Title { get; set; }
+  
+  [BsonElement("year")]
+  public required int Year { get; set; }
+  
+  [BsonElement("runtime")]
+  public required int Runtime { get; set; }
+  
+  [BsonElement("plot")]
+  public required string Plot { get; set; }
+  
+  [BsonElement("fullplot")]
+  public string FullPlot { get; set; }
+  
+  [BsonElement("released")]
+  public required DateTime Released { get; set; }
+  
+  [BsonElement("rated")]
+  public required string Rated { get; set; }
+  
+  [BsonElement("poster")]
+  public required string Poster { get; set; }
+  
+  [BsonElement("comments")]
+  public IEnumerable<Comment> Comments { get; set; }
+ 
+}
+public class Comment
+{
+  [BsonElement("text")]
+  public required string Text { get; set; }
+  
+  [BsonElement("commentDate")]
+  public required DateTime CommentDate { get; set; }
 }

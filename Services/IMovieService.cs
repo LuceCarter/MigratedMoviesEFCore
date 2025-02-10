@@ -11,9 +11,6 @@ public interface IMovieService
         IEnumerable<Actor> GetAllActors(); 
         
        void AddActor(Actor actor);
-        IEnumerable<Comment> GetAllComments();
-        IEnumerable<MovieCast> GetAllMovieCasts();
-        IEnumerable<MovieGenres> GetAllMovieGenres();
 
         IEnumerable<Theater> GetAllTheaters();
 

@@ -9,7 +9,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddOpenApi();
 
 builder.Services.AddDbContext<MoviesDbContext>(options =>
-options.UseNpgsql(builder.Configuration.GetConnectionString("MoviesContext")));
+options.UseMongoDB(builder.Configuration.GetConnectionString("MongoDBAtlasConnectionString"), "migrated_mflix").EnableSensitiveDataLogging());
 
 builder.Services.AddScoped<IMovieService, MovieService>();
 
@@ -41,20 +41,7 @@ app.MapGet("/actors", (IMovieService movieService) =>
    return movieService.GetAllActors();
 }).WithName("GetActors");
 
-app.MapGet("/comments", (IMovieService movieService) =>
-{
-   return movieService.GetAllComments();
-}).WithName("GetComments");
 
-app.MapGet("/moviecasts", (IMovieService movieService) =>
-{
-   return movieService.GetAllMovieCasts();
-}).WithName("GetMovieCasts");
-
-app.MapGet("/moviegenres", (IMovieService movieService) =>
-{
-   return movieService.GetAllMovieGenres();
-}).WithName("GetMovieGenres");
 
 app.MapGet("/theaters", (IMovieService movieService) =>
 {

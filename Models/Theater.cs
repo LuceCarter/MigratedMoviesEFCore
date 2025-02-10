@@ -1,45 +1,39 @@
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Text.Json.Serialization;
+using MongoDB.Bson;
+using MongoDB.Bson.Serialization.Attributes;
+using MongoDB.EntityFrameworkCore;
+
 namespace MigratedMoviesEFCore.Models;
 
-[Table("theaters")]
+[Collection("theaters")]
+[BsonIgnoreExtraElements]
 public class Theater
 {
-    [Key]
-    [Column("theater_id")]
-    [JsonPropertyName("theater_id")]
-    public int TheaterId { get; set; }
-
-    [Column("theater_name")]
-    [JsonPropertyName("theater_name")]
-    public string? TheaterName { get; set; }
-
-    [Column("street1")]
-    [JsonPropertyName("street1")]
+    
+    [BsonId]
+    [BsonElement("_id")]
+    public ObjectId Id { get; set; }
+    
+    [BsonElement("theaterName")]
+    public required string TheaterName { get; set; }
+   
+    [BsonElement("street1")]
     public string? Street1 { get; set; }
 
-    [Column("street2")]
-    [JsonPropertyName("street2")]
+    [BsonElement("street2")]
     public string? Street2 { get; set; }
 
-    [Column("city")]
-    [JsonPropertyName("city")]
+    [BsonElement("city")]
     public string? City { get; set; }
 
-    [Column("state")]
-    [JsonPropertyName("state")]
+    [BsonElement("state")]
     public string? State { get; set; }
 
-    [Column("zipcode")]
-    [JsonPropertyName("zipcode")]
+    [BsonElement("zipcode")]
     public string? Zipcode { get; set; }
 
-    [Column("location_lat")]
-    [JsonPropertyName("location_lat")]
+    [BsonElement("location_lat")]
     public decimal? LocationLat { get; set; }
 
-    [Column("location_lon")]
-    [JsonPropertyName("location_lon")]
+    [BsonElement("location_lon")]
     public decimal? LocationLon { get; set; }
 }

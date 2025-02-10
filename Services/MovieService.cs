@@ -15,7 +15,7 @@ public class MovieService : IMovieService
 
     public IEnumerable<Movie> GetAllMovies()
     {
-        return _moviesDbContext.Movies.OrderBy(m => m.MovieId).AsNoTracking().AsEnumerable();
+        return _moviesDbContext.Movies.OrderBy(m => m.Title).AsNoTracking().AsEnumerable();
     }
 
     public void AddMovie(Movie movie)
@@ -41,21 +41,7 @@ public class MovieService : IMovieService
         
         _moviesDbContext.SaveChanges();
     }
-    public IEnumerable<Comment> GetAllComments()
-    {
-        return _moviesDbContext.Comments.OrderBy(c => c.CommentDate).AsNoTracking().AsEnumerable();
-    }
-    
-    public IEnumerable<MovieCast> GetAllMovieCasts()
-    {
-        return _moviesDbContext.MovieCasts.OrderBy(mc => mc.MovieId).AsNoTracking().AsEnumerable();
-    }
-    
-    public IEnumerable<MovieGenres> GetAllMovieGenres()
-    {
-        return _moviesDbContext.MovieGenres.OrderBy(mg => mg.MovieId).AsNoTracking().AsEnumerable();
-    }
-    
+
     public IEnumerable<Theater> GetAllTheaters()
     {
         return _moviesDbContext.Theaters.OrderBy(t => GetType().Name).AsNoTracking().AsEnumerable();

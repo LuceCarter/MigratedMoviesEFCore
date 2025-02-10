@@ -1,30 +1,26 @@
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Text.Json.Serialization;
+using MongoDB.Bson;
+using MongoDB.Bson.Serialization.Attributes;
+using MongoDB.EntityFrameworkCore;
 
 namespace MigratedMoviesEFCore.Models;
 
-[Table("users")]
+[Collection("users")]
+[BsonIgnoreExtraElements]
 public class User
 {
-    [Key]
-    [Column("user_id")]
-    [JsonPropertyName("user_id")]
-    public int UserId { get; set; }
-
-    [Column("name")]
-    [JsonPropertyName("name")]
+    [BsonId]
+    [BsonElement("_id")]
+    public ObjectId Id { get; set; }
+    
+    [BsonElement("name")]
     public string? Name { get; set; }
 
-    [Column("email")]
-    [JsonPropertyName("email")]
+    [BsonElement("email")]
     public string? Email { get; set; }
-
-    [Column("password")]
-    [JsonPropertyName("password")]
+    
+    [BsonElement("password")]
     public string? Password { get; set; }
 
-    [Column("created_at")]
-    [JsonPropertyName("created_at")]
+    [BsonElement("created_at")]
     public DateTime? CreatedAt { get; set; }
 }
