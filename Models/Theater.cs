@@ -5,7 +5,6 @@ using MongoDB.EntityFrameworkCore;
 namespace MigratedMoviesEFCore.Models;
 
 [Collection("theaters")]
-[BsonIgnoreExtraElements]
 public class Theater
 {
     

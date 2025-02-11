@@ -5,7 +5,6 @@ using MongoDB.EntityFrameworkCore;
 namespace MigratedMoviesEFCore.Models;
 
 [Collection("users")]
-[BsonIgnoreExtraElements]
 public class User
 {
     [BsonId]

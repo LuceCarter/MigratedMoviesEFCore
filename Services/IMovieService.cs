@@ -5,14 +5,26 @@ namespace MigratedMoviesEFCore.Services;
 
 public interface IMovieService
 {
-        IEnumerable<Movie> GetAllMovies();
-
-       void AddMovie(Movie movie);
-        IEnumerable<Actor> GetAllActors(); 
+    IEnumerable<Movie> GetAllMovies();
         
-       void AddActor(Actor actor);
+    Movie GetMovieById(string id);
+        
+    void UpdateMovie(Movie movie);
 
-        IEnumerable<Theater> GetAllTheaters();
+    void DeleteMovie(Movie movieToDelete);
 
-        IEnumerable<User> GetAllUsers();
+    string AddMovie(Movie movie);
+    IEnumerable<Actor> GetAllActors(); 
+        
+    Actor GetActorById(string id);
+        
+    void UpdateActor(Actor actor);
+
+    void DeleteActor(Actor actorToDelete);
+        
+    string AddActor(Actor actor);
+
+    IEnumerable<Theater> GetAllTheaters();
+
+    IEnumerable<User> GetAllUsers();
 }

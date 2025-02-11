@@ -1,6 +1,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using MigratedMoviesEFCore.Models;
+using MongoDB.Bson;
 
 namespace MigratedMoviesEFCore.Services;
 
@@ -17,8 +18,34 @@ public class MovieService : IMovieService
     {
         return _moviesDbContext.Movies.OrderBy(m => m.Title).AsNoTracking().AsEnumerable();
     }
+    
+    public Movie GetMovieById(string id)
+    {
+        return _moviesDbContext.Movies.Find(ObjectId.Parse(id));
+    }
+    
+    public void UpdateMovie(Movie movie)
+    {
+        _moviesDbContext.Movies.Update(movie);
+        
+        _moviesDbContext.ChangeTracker.DetectChanges();
+        Console.WriteLine(_moviesDbContext.ChangeTracker.DebugView.LongView);
 
-    public void AddMovie(Movie movie)
+        _moviesDbContext.SaveChanges();
+    }
+
+    public void DeleteMovie(Movie  movieToDelete)
+    {
+        _moviesDbContext.Movies.Remove(movieToDelete);
+        
+        _moviesDbContext.ChangeTracker.DetectChanges();
+        Console.WriteLine(_moviesDbContext.ChangeTracker.DebugView.LongView);
+
+        _moviesDbContext.SaveChanges();
+    }
+
+
+    public string AddMovie(Movie movie)
     {
         _moviesDbContext.Movies.Add(movie);
         // Outputting for debugging purposes
@@ -26,19 +53,49 @@ public class MovieService : IMovieService
         Console.WriteLine(_moviesDbContext.ChangeTracker.DebugView.LongView);
 
         _moviesDbContext.SaveChanges();
+        
+        return movie.Id.ToString();
     }
+    
     public IEnumerable<Actor> GetAllActors()
     {
         return _moviesDbContext.Actors.OrderBy(a => a.DateOfBirth).AsNoTracking().AsEnumerable();
     }
     
-    public void AddActor(Actor actor)
+    public Actor GetActorById(string id)
+    {
+        return _moviesDbContext.Actors.Find(ObjectId.Parse(id));
+    }
+    
+    public string AddActor(Actor actor)
     {
         _moviesDbContext.Actors.Add(actor);
         // Outputting for debugging purposes
         _moviesDbContext.ChangeTracker.DetectChanges();
         Console.WriteLine(_moviesDbContext.ChangeTracker.DebugView.LongView);
         
+        _moviesDbContext.SaveChanges();
+        
+        return actor.Id.ToString();
+    }
+
+    public void UpdateActor(Actor actor)
+    {
+        _moviesDbContext.Actors.Update(actor);
+        // Outputting for debugging purposes
+        _moviesDbContext.ChangeTracker.DetectChanges();
+        Console.WriteLine(_moviesDbContext.ChangeTracker.DebugView.LongView);
+
+        _moviesDbContext.SaveChanges();
+    }
+
+    public void DeleteActor(Actor actorToDelete)
+    {
+        _moviesDbContext.Actors.Remove(actorToDelete);
+        
+        _moviesDbContext.ChangeTracker.DetectChanges();
+        Console.WriteLine(_moviesDbContext.ChangeTracker.DebugView.LongView);
+
         _moviesDbContext.SaveChanges();
     }
 

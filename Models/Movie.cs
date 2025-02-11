@@ -1,3 +1,4 @@
+using System.ComponentModel.DataAnnotations;
 using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;
 using MongoDB.EntityFrameworkCore;
@@ -5,12 +6,9 @@ using MongoDB.EntityFrameworkCore;
 namespace MigratedMoviesEFCore.Models;
 
 [Collection("movies")]
-[BsonIgnoreExtraElements]
 public class Movie
 {
-  [BsonId]
-  [BsonElement("_id")]
-  public ObjectId Id { get; set; }
+  [BsonId] [BsonElement("_id")] public ObjectId Id { get; set; } = ObjectId.GenerateNewId();
   
   [BsonElement("title")]
   public required string Title { get; set; }
@@ -35,10 +33,10 @@ public class Movie
   
   [BsonElement("poster")]
   public required string Poster { get; set; }
-  
-  [BsonElement("comments")]
-  public IEnumerable<Comment> Comments { get; set; }
- 
+
+  [BsonElement("comments")] 
+  public List<Comment>? Comments { get; set; } = new List<Comment>();
+
 }
 public class Comment
 {
