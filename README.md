@@ -5,9 +5,9 @@ This is a common scenario for people looking to modernize their applications and
 
 ## Running the application
 
-You can run this application yourself by setting up a PostgreSQL database and loading the [sample data](https://mdb.link/rm-postgres-demo-data).
+You can run this application yourself by setting up a MongoDB cluster and using [mongorestore](https://mdb.link/mongorestore-tool) to load the [sample data](https://mdb.link/rm-demo-mongodb-data).
 
-There is also a branch ```with-mongodb``` if you would like to run the MongoDB version.
+There is also a branch ```with-postgresql``` if you would like to run the PostgreSQL version.
 
 Once you have a database available with the data loaded, you build and run from the .NET CLI in terminal:
 
