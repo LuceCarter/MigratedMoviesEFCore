@@ -9,7 +9,7 @@ public interface IMovieService
         
     Movie GetMovieById(string id);
         
-    void UpdateMovie(Movie movie);
+    void UpdateMovie(string movieId, Movie movie);
 
     void DeleteMovie(Movie movieToDelete);
 
@@ -18,7 +18,7 @@ public interface IMovieService
         
     Actor GetActorById(string id);
         
-    void UpdateActor(Actor actor);
+    void UpdateActor(string id, Actor actor);
 
     void DeleteActor(Actor actorToDelete);
         

@@ -23,10 +23,11 @@ public class MovieService : IMovieService
     {
         return _moviesDbContext.Movies.Find(ObjectId.Parse(id));
     }
-    
-    public void UpdateMovie(Movie movie)
+
+    public void UpdateMovie(string movieId, Movie movie)
     {
-        _moviesDbContext.Movies.Update(movie);
+        var movieToUpdate = _moviesDbContext.Movies.FirstOrDefault((m => m.Id == ObjectId.Parse(movieId)));
+        _moviesDbContext.Movies.Update(movieToUpdate);
         
         _moviesDbContext.ChangeTracker.DetectChanges();
         Console.WriteLine(_moviesDbContext.ChangeTracker.DebugView.LongView);
@@ -44,7 +45,6 @@ public class MovieService : IMovieService
         _moviesDbContext.SaveChanges();
     }
 
-
     public string AddMovie(Movie movie)
     {
         _moviesDbContext.Movies.Add(movie);
@@ -53,20 +53,39 @@ public class MovieService : IMovieService
         Console.WriteLine(_moviesDbContext.ChangeTracker.DebugView.LongView);
 
         _moviesDbContext.SaveChanges();
-        
+
         return movie.Id.ToString();
     }
-    
     public IEnumerable<Actor> GetAllActors()
     {
         return _moviesDbContext.Actors.OrderBy(a => a.DateOfBirth).AsNoTracking().AsEnumerable();
     }
-    
+
     public Actor GetActorById(string id)
     {
         return _moviesDbContext.Actors.Find(ObjectId.Parse(id));
     }
-    
+
+    public void UpdateActor(string actorId, Actor actor)
+    {
+        var actorToUpdate = _moviesDbContext.Actors.FirstOrDefault(a => a.Id == ObjectId.Parse(actorId));
+        _moviesDbContext.Actors.Update(actorToUpdate);
+        // Outputting for debugging purposes
+        _moviesDbContext.ChangeTracker.DetectChanges();
+        Console.WriteLine(_moviesDbContext.ChangeTracker.DebugView.LongView);
+
+        _moviesDbContext.SaveChanges();
+    }
+    public void DeleteActor(Actor actorToDelete)
+    {
+        _moviesDbContext.Actors.Remove(actorToDelete);
+        
+        _moviesDbContext.ChangeTracker.DetectChanges();
+        Console.WriteLine(_moviesDbContext.ChangeTracker.DebugView.LongView);
+
+        _moviesDbContext.SaveChanges();
+    }
+
     public string AddActor(Actor actor)
     {
         _moviesDbContext.Actors.Add(actor);
@@ -78,27 +97,7 @@ public class MovieService : IMovieService
         
         return actor.Id.ToString();
     }
-
-    public void UpdateActor(Actor actor)
-    {
-        _moviesDbContext.Actors.Update(actor);
-        // Outputting for debugging purposes
-        _moviesDbContext.ChangeTracker.DetectChanges();
-        Console.WriteLine(_moviesDbContext.ChangeTracker.DebugView.LongView);
-
-        _moviesDbContext.SaveChanges();
-    }
-
-    public void DeleteActor(Actor actorToDelete)
-    {
-        _moviesDbContext.Actors.Remove(actorToDelete);
-        
-        _moviesDbContext.ChangeTracker.DetectChanges();
-        Console.WriteLine(_moviesDbContext.ChangeTracker.DebugView.LongView);
-
-        _moviesDbContext.SaveChanges();
-    }
-
+    
     public IEnumerable<Theater> GetAllTheaters()
     {
         return _moviesDbContext.Theaters.OrderBy(t => GetType().Name).AsNoTracking().AsEnumerable();

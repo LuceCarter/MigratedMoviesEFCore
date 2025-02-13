@@ -46,9 +46,9 @@ app.MapPost("/movies", (IMovieService movieService, Movie movie) =>
     return newId;
 }).WithName("AddMovie");
 
-app.MapPut("/movies/{id}", (IMovieService movieService, Movie movieToUpdate) =>
+app.MapPut("/movies/{id}", (IMovieService movieService, string id, Movie movieToUpdate) =>
 {
-    movieService.UpdateMovie(movieToUpdate);
+    movieService.UpdateMovie(id, movieToUpdate);
 }).WithName("UpdateMovie");
 
 app.MapDelete("/movies/{id}", (IMovieService movieService, string id) =>
@@ -71,12 +71,13 @@ app.MapGet("/actors/{id}", (IMovieService movieService, string id) =>
 
 app.MapPost("/actors", (IMovieService movieService, Actor actor) =>
 {
-    movieService.AddActor(actor);
+    string newId = movieService.AddActor(actor);
+    return newId;
 }).WithName("AddActor");
 
-app.MapPut("/actors/{id}", (IMovieService movieService, Actor actorToUpdate) =>
+app.MapPut("/actors/{id}", (IMovieService movieService, string id, Actor actorToUpdate) =>
 {
-    movieService.UpdateActor(actorToUpdate);
+    movieService.UpdateActor(id, actorToUpdate);
 }).WithName("UpdateActor");
 
 app.MapDelete("/actors/{id}", (IMovieService movieService, string id) =>

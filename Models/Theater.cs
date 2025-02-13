@@ -7,7 +7,6 @@ namespace MigratedMoviesEFCore.Models;
 [Collection("theaters")]
 public class Theater
 {
-    
     [BsonId]
     [BsonElement("_id")]
     public ObjectId Id { get; set; }
