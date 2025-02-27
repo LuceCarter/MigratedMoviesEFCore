@@ -1,6 +1,6 @@
 # Migrated Movies EF Core Demo Application
 
-This is a demo that is linked to a soon to be published tutorial on migrating from PostgreSQL in an EF Core application to MongoDB. 
+This is a demo that is a companion to a [tutorial on migrating from PostgreSQL in an EF Core application to MongoDB](https://mdb.link/efcore-postgres-migration-tutorial). 
 This is a common scenario for people looking to modernize their applications and enjoy the benefits of MongoDB's scalability, flexibility and performance.
 
 ## Running the application
